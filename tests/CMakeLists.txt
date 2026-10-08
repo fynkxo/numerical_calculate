@@ -1,0 +1,10 @@
+find_package(Boost REQUIRED COMPONENTS unit_test_framework)
+
+file(GLOB_RECURSE t_FILES "*.cpp")
+foreach(f ${t_FILES})
+    get_filename_component(e ${f})
+    string(REPLACE ".cpp" "" e ${e})
+    add_executable(${e} ${f})
+    target_link_libraries(${e} PRIVATE numerical_calculate Boost::unit_test_framework)
+    add_test(NAME ${e} COMMAND ${e})
+endforeach()
